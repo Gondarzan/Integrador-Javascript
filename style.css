@@ -1051,5 +1051,43 @@ footer a:hover{
 }
 
 
+/* Error / Success */
+.form__field{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form__field.error input {
+    border: 1px solid #dc3545;
+}
 
+.form__field small {
+    color: #dc3545;
+    max-width: 350px;
+    text-align: center;
+    padding: 7px 0;
+}
+
+.form__field.success input {
+    border: 1px solid #28a745;
+}
+
+
+.form_field.error input {
+    border: 1px solid #dc3545;
+}
+
+.small-error{
+    color: #dc3545;
+}
+
+
+.form_field small {
+    color: #dc3545;
+    border: 1px;
+    max-width: 350px;
+    text-align: center;
+    padding: 7px 0;
+}
   

@@ -42,21 +42,23 @@
         <section id="loggin">
             <div class="loggin-contenedor">
                 <div class="loggin-info">
-                    <form action="" class="form">
+                    <form action="" id="form" class="form register">
                         <h1>REGISTRATE</h1>
                         <div class="form-container-login">
                             <div class="form-container-signup">
-                                <div class="formulario-detalle">
-                                    <input type="email" id="email" required placeholder="Escribe tu mail" class="form-input">   
+                                <div class="form__field">
+                                    <input type="email" id="email" required placeholder="Escribe tu mail" class="form-input" autocomplete="off">   
+                                    <small></small>
                                 </div>
-                                <div class="formulario-detalle">
-                                    <input type="password" id="name" required placeholder="Elige una contraseña"class="form-input">   
+                                <div class="form__field">
+                                    <input type="password" id="password" required placeholder="Elige una contraseña"class="form-input" autocomplete="off">
+                                    <small></small>
                                 </div>
-                                <p class="form-text-signup">Min 6 carácteres, números y letras</p>
-                                <div class="formulario-detalle">
-                                    <input type="name" id="username" required placeholder="Elige un username" class="form-input">   
+                                <div class="form__field">
+                                    <input type="name" id="username" required placeholder="Elige un username" class="form-input" autocomplete="off">
+                                    <small></small>
                                 </div>
-                                <div class="formulario-detalle" id="formulario-detalle-date">
+                                <div class="form__field" id="formulario-detalle-date">
                                     <label for="fechaDeNacimiento" class="form-label-signup">Fecha de nacimiento</label>
                                     <input type="date" id="fechaDeNacimiento" required class="form-input" >
                                 </div>
@@ -104,6 +106,8 @@
           </div>
           <p>CREATED BY <span>GONZAN</span></p>
     </footer>
+
+    <script src="./register.js"></script>
 
     <script src="./main.js"></script>
     <script src="./data.js"></script> 

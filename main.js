@@ -20,7 +20,7 @@ const saveLocalStorage = cartList => {
   localStorage.setItem('cart', JSON.stringify(cartList))
 }
 
-const renderProduct = ({id, name, bid, cardImg}) => {
+const renderProduct = ({ id, name, bid, cardImg }) => {
   return `
     <div class="product">
       <img src=${cardImg} alt=${name}/>
@@ -51,10 +51,10 @@ const renderFilteredProducts = category => {
 const renderDividedProducts = (index = 0) => {
   const productsToRender = productsController.dividedProducts[index]
   products.innerHTML += productsToRender.map(renderProduct).join("");
-} 
+}
 
 const renderProducts = (index = 0, category = null) => {
-  if(!category) {
+  if (!category) {
     renderDividedProducts(index)
   } else {
     renderFilteredProducts(category)
@@ -66,9 +66,9 @@ const isLastIndex = () => productsController.nextProductsIndex === productsContr
 const showMoreProducts = () => {
   renderProducts(productsController.nextProductsIndex);
   productsController.nextProductsIndex++;
-  if (isLastIndex()){
+  if (isLastIndex()) {
     btnLoad.classList.add('hidden')
-  } else{
+  } else {
     btnLoad.classList.remove('hidden')
   }
 }
@@ -76,7 +76,7 @@ const showMoreProducts = () => {
 const changeBtnActiveState = selectedCategory => {
   const categories = [...categoriesList]
   categories.forEach(categoryBtn => {
-    if (categoryBtn.dataset.category !== selectedCategory){
+    if (categoryBtn.dataset.category !== selectedCategory) {
       categoryBtn.classList.remove('active');
     } else {
       categoryBtn.classList.add('active');
@@ -85,7 +85,7 @@ const changeBtnActiveState = selectedCategory => {
 }
 
 const changeShowmoreBtnState = selectedCategory => {
-  if (!selectedCategory){
+  if (!selectedCategory) {
     btnLoad.classList.remove("hidden");
     return;
   }
@@ -93,7 +93,7 @@ const changeShowmoreBtnState = selectedCategory => {
 };
 
 const changeFilterState = selectedCategory => {
-  changeBtnActiveState (selectedCategory)
+  changeBtnActiveState(selectedCategory)
   changeShowmoreBtnState(selectedCategory)
 }
 
@@ -101,10 +101,10 @@ const applyFilter = e => {
   if (!e.target.classList.contains('category')) return;
   const clickedCategory = e.target.dataset.category;
   changeFilterState(clickedCategory);
-  if(!clickedCategory) {
+  if (!clickedCategory) {
     products.innerHTML = '';
     renderProducts();
-  } else{
+  } else {
     renderProducts(0, clickedCategory);
     productsController.nextProductsIndex = 1;
   };
@@ -112,28 +112,28 @@ const applyFilter = e => {
 
 const toggleMenu = () => {
   barsMenu.classList.toggle('open-menu')
-  if (cartMenu.classList.contains('open-cart')){
+  if (cartMenu.classList.contains('open-cart')) {
     cartMenu.classList.remove('open-cart');
-  } else{
+  } else {
     overlay.classList.toggle('show-overlay')
   }
 }
 
 const toggleCart = () => {
   cartMenu.classList.toggle('open-cart');
-  if(barsMenu.classList.contains('open-menu')){
+  if (barsMenu.classList.contains('open-menu')) {
     barsMenu.classList.remove('open-menu');
-  } else{
+  } else {
     overlay.classList.toggle('show-overlay')
   }
 
 }
 
 const closeOnScroll = () => {
-  if(
+  if (
     !barsMenu.classList.contains('open-menu') &&
     !cartMenu.classList.contains('open-cart')
-  )  return;
+  ) return;
 
   barsMenu.classList.remove('open-menu')
   cartMenu.classList.remove('open-cart')
@@ -172,8 +172,8 @@ const renderCartProduct = ({ id, name, bid, img, quantity }) => {
 const renderCart = () => {
   if (!cart.length) {
     productsCart.innerHTML = `<p class="empty-msg">No hay productos en el carrito.</p>`
-    return;  
-  } 
+    return;
+  }
   productsCart.innerHTML = cart.map(renderCartProduct).join('')
 };
 
@@ -185,10 +185,10 @@ const showTotal = () => {
   total.innerHTML = `$ ${getCartTotal().toFixed(3)}`
 };
 
-const isExistingCartProduct = ({ id}) => cart.some(product => product.id === id)
+const isExistingCartProduct = ({ id }) => cart.some(product => product.id === id)
 
 const createCartProduct = product => {
-  cart = [...cart, {...product, quantity: 1}]
+  cart = [...cart, { ...product, quantity: 1 }]
 }
 
 const showSuccessModal = (msg) => {
@@ -200,7 +200,7 @@ const showSuccessModal = (msg) => {
 };
 
 const disableBtn = button => {
-  if(!cart.length) {
+  if (!cart.length) {
     button.classList.add('disabled')
   } else {
     button.classList.remove('disabled')
@@ -217,24 +217,24 @@ const checkCartState = () => {
 }
 
 const addUnitToProduct = (product) => {
-  cart = cart.map(cartProduct => cartProduct.id === product.id ? 
-  { ...cartProduct, quantity: cartProduct.quantity + 1}
-  : cartProduct)
+  cart = cart.map(cartProduct => cartProduct.id === product.id ?
+    { ...cartProduct, quantity: cartProduct.quantity + 1 }
+    : cartProduct)
 }
 
 const addProduct = (e) => {
-  if(!e.target.classList.contains('btn-add')) return;
+  if (!e.target.classList.contains('btn-add')) return;
   console.log('soy un boton')
-  const { id, name, bid, img} = e.target.dataset;
-  
-  const product = { id, name, bid, img}
+  const { id, name, bid, img } = e.target.dataset;
+
+  const product = { id, name, bid, img }
   if (isExistingCartProduct(product)) {
     addUnitToProduct(product)
     showSuccessModal('Se agregó una unidad del producto al carrito')
     showSuccessModal('Se agregó una unidad del producto al carrito')
   } else {
-    createCartProduct (product)
-    showSuccessModal ('El producto se ha agregado al carrito.')
+    createCartProduct(product)
+    showSuccessModal('El producto se ha agregado al carrito.')
   }
 
   checkCartState()
@@ -277,31 +277,31 @@ const handlePlusBtnEvent = id => {
   addUnitToProduct(existingProduct)
 }
 
-const removeProductFromCart = ({id}) => {
+const removeProductFromCart = ({ id }) => {
   cart = cart.filter(product => product.id !== id)
   checkCartState()
 }
 
-const substractProductUnit = ({id}) => {
-  cart = cart.map(product => product.id === id ? {...product, quantity: product.quantity - 1} : product)
+const substractProductUnit = ({ id }) => {
+  cart = cart.map(product => product.id === id ? { ...product, quantity: product.quantity - 1 } : product)
 }
 
 const handleMinutBtnEvent = id => {
   const existingProduct = cart.find(product => product.id === id)
-  
+
   if (existingProduct.quantity === 1) {
-    if (window.confirm('¿Desea eliminar el producto del carrito?')){
+    if (window.confirm('¿Desea eliminar el producto del carrito?')) {
       removeProductFromCart(existingProduct)
     }
     return
-  } 
+  }
   substractProductUnit(existingProduct)
 }
 
 const handleQuantity = e => {
-  if ( e.target.classList.contains('down')){
+  if (e.target.classList.contains('down')) {
     handleMinutBtnEvent(e.target.dataset.id)
-  } else if (e.target.classList.contains ('up')) {
+  } else if (e.target.classList.contains('up')) {
     handlePlusBtnEvent(e.targe.dataset.id)
   }
   checkCartState()
@@ -335,4 +335,5 @@ const init = () => {
 init();
 
 
-
+//
+  
