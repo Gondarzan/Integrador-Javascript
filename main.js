@@ -111,23 +111,22 @@ const applyFilter = e => {
 };
 
 const toggleMenu = () => {
-  barsMenu.classList.toggle('open-menu')
-  if (cartMenu.classList.contains('open-cart')) {
-    cartMenu.classList.remove('open-cart');
-  } else {
-    overlay.classList.toggle('show-overlay')
+  barsMenu.classList.toggle("open-menu");
+  if (cartMenu.classList.contains("open-cart")) {
+    cartMenu.classList.remove("open-cart");
+    return;
   }
-}
+  overlay.classList.toggle("show-overlay");
+};
 
 const toggleCart = () => {
-  cartMenu.classList.toggle('open-cart');
-  if (barsMenu.classList.contains('open-menu')) {
-    barsMenu.classList.remove('open-menu');
-  } else {
-    overlay.classList.toggle('show-overlay')
+  cartMenu.classList.toggle("open-cart");
+  if (barsMenu.classList.contains("open-menu")) {
+    barsMenu.classList.remove("open-menu");
+    return;
   }
-
-}
+  overlay.classList.toggle("show-overlay");
+};
 
 const closeOnScroll = () => {
   if (
@@ -214,40 +213,39 @@ const checkCartState = () => {
   disableBtn(buyBtn);
   disableBtn(deleteBtn);
   renderCartBubble();
-}
+};
 
 const addUnitToProduct = (product) => {
-  cart = cart.map(cartProduct => cartProduct.id === product.id ?
-    { ...cartProduct, quantity: cartProduct.quantity + 1 }
-    : cartProduct)
-}
+  cart = cart.map((cartProduct) =>
+    cartProduct.id === product.id
+      ? { ...cartProduct, quantity: cartProduct.quantity + 1 }
+      : cartProduct
+  );
+};
 
 const addProduct = (e) => {
-  if (!e.target.classList.contains('btn-add')) return;
-  console.log('soy un boton')
+  if (!e.target.classList.contains("btn-add")) return;
   const { id, name, bid, img } = e.target.dataset;
 
-  const product = { id, name, bid, img }
+  const product = { id, name, bid, img };
   if (isExistingCartProduct(product)) {
-    addUnitToProduct(product)
-    showSuccessModal('Se agregó una unidad del producto al carrito')
-    showSuccessModal('Se agregó una unidad del producto al carrito')
+    addUnitToProduct(product);
+    showSuccessModal("Se agegó una unidad del producto al carrito.");
   } else {
-    createCartProduct(product)
-    showSuccessModal('El producto se ha agregado al carrito.')
+    createCartProduct(product);
+    showSuccessModal("El producto se ha agregado al carrito.");
   }
-
-  checkCartState()
+  checkCartState();
 };
 
 const renderCartBubble = () => {
-  cartBubble.textContent = cart.reduce((acc, cur) => acc + cur.quantity, 0)
-}
+  cartBubble.textContent = cart.reduce((acc, cur) => acc + cur.quantity, 0);
+};
 
 const resetCartItems = () => {
   cart = [];
-  checkCartState()
-}
+  checkCartState();
+};
 
 const completeCartAction = (confirmMsg, successMsg) => {
   if (!cart.length) return;
@@ -255,8 +253,7 @@ const completeCartAction = (confirmMsg, successMsg) => {
     resetCartItems()
     alert(successMsg)
   }
-
-}
+};
 
 const completeBuy = () => {
   completeCartAction(
@@ -272,19 +269,19 @@ const deleteCart = () => {
   );
 };
 
-const handlePlusBtnEvent = id => {
-  const existingProduct = cart.find(product => product.id === id)
-  addUnitToProduct(existingProduct)
-}
+const handlePlusBtnEvent = (id) => {
+  const existingProduct = cart.find((product) => product.id === id);
+  addUnitToProduct(existingProduct);
+};
 
 const removeProductFromCart = ({ id }) => {
   cart = cart.filter(product => product.id !== id)
   checkCartState()
-}
+};
 
 const substractProductUnit = ({ id }) => {
   cart = cart.map(product => product.id === id ? { ...product, quantity: product.quantity - 1 } : product)
-}
+};
 
 const handleMinutBtnEvent = id => {
   const existingProduct = cart.find(product => product.id === id)
@@ -293,19 +290,19 @@ const handleMinutBtnEvent = id => {
     if (window.confirm('¿Desea eliminar el producto del carrito?')) {
       removeProductFromCart(existingProduct)
     }
-    return
+    return;
   }
-  substractProductUnit(existingProduct)
-}
+  substractProductUnit(existingProduct);
+};
 
-const handleQuantity = e => {
-  if (e.target.classList.contains('down')) {
-    handleMinutBtnEvent(e.target.dataset.id)
-  } else if (e.target.classList.contains('up')) {
-    handlePlusBtnEvent(e.targe.dataset.id)
+const handleQuantity = (e) => {
+  if (e.target.classList.contains("down")) {
+    handleMinutBtnEvent(e.target.dataset.id);
+  } else if (e.target.classList.contains("up")) {
+    handlePlusBtnEvent(e.target.dataset.id);
   }
-  checkCartState()
-}
+  checkCartState();
+};
 
 const init = () => {
   renderProducts();
@@ -323,7 +320,8 @@ const init = () => {
   document.addEventListener("DOMContentLoaded", showTotal);
 
   productsCart.addEventListener('click', handleQuantity);
-  products.addEventListener('click', addProduct);
+  products.addEventListener("click", addProduct);
+
   buyBtn.addEventListener('click', completeBuy);
   deleteBtn.addEventListener('click', deleteCart);
 
@@ -334,6 +332,3 @@ const init = () => {
 };
 init();
 
-
-//
-  

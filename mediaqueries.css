@@ -9,16 +9,18 @@
 
     .navbar-list{
         position: absolute;
-        top: 140px;
-        left: 5%;
-        right: 5%;
+        top: 105px;
         width: 90%;
+
+        
         flex-direction: column;
         background-color: var(--background-body);
-        border: 2px solid var();
-        border-top: none;
+        border-top: 0px;
+        border-radius: 0px 0px 15px 15px;
         align-items: flex-start;
-        padding: 5px 30px;
+
+
+        padding: 0px 30px 20px 30px;
         gap: 25px;
         z-index: 2;
         display: none;
@@ -31,26 +33,33 @@
 
     .cart-bubble {
         position: absolute;
-        top: 20px;
-        right: 210px;
+        top: 34px;
+        right: 243px;
  
     }
 
+    .open-menu{
+        display: flex;
+    }    
 
     .menu-label{
         display: flex;
         order: 2;
         cursor: pointer;
+        padding: 15px;
+
     }
 
 
     .menu-label img{
-        width: 25px;
-        height: 25px;
+        width: 35px;
+        height: 20px;
+        
     }
 
     #menu-toggle:checked + .navbar-list{
         display: flex;
+        
     }
 
     .logo{
